@@ -14,11 +14,11 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN touch /var/www/database/database.sqlite
 
-RUN chmod -R 775 storage bootstrap/cache database
+RUN chmod -R 777 storage bootstrap/cache database
 
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
+RUN php artisan config:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
 
 EXPOSE 10000
 
