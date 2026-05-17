@@ -1,19 +1,17 @@
-FROM php:8.3-fpm
+FROM php:8.3-cli
 
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
-    nginx curl zip unzip git \
-    libpq-dev libzip-dev libonig-dev \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring
+    zip unzip git curl \
+    && docker-php-ext-install pdo pdo_sqlite
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
-
-RUN cp .env.example .env && php artisan key:generate
+RUN mkdir -p database && touch database/database.sqlite
 
 EXPOSE 8000
 
