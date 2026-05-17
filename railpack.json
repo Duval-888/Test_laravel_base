@@ -2,7 +2,7 @@
     "packages":{
         "php":"8.3"
     },
-    "aptPackages":[
+    "buildAptPackages":[
         "bison",
         "re2c"
     ]
