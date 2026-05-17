@@ -15,6 +15,11 @@
         "libonig-dev",
         "libsodium-dev",
         "libssl-dev",
-        "pkg-config"
+        "pkg-config",
+        "libsqlite3-dev",
+        "autoconf",
+        "automake",
+        "libtool",
+        "libpcre2-dev"
     ]
 }
