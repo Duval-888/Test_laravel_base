@@ -80,7 +80,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/logs', [AdminDashboardController::class, 'logs'])->name('logs');
     Route::get('/moderation', [AdminDashboardController::class, 'moderation'])->name('moderation');
     Route::patch('/moderation/{post}/restore', [AdminDashboardController::class, 'restorePost'])->name('moderation.restore');
-    Route::patch('/notifications/read-all', [AdminDashboardController::class, 'markAllNotificationsRead'])->name('notifications.readAll');
     Route::get('/topics', [AdminDashboardController::class, 'topics'])->name('topics');
-    
+    Route::get('/notifications', [AdminDashboardController::class, 'notifications'])->name('notifications');
+    Route::patch('/notifications/read-all', [AdminDashboardController::class, 'markAllNotificationsRead'])->name('notifications.readAll');
 });

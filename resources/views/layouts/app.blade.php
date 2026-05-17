@@ -208,40 +208,44 @@
                 @endguest
 
                 @auth
-                    @php
-                        $unreadCount = \App\Models\Notification::where('user_id', auth()->id())
-                            ->where('is_read', false)
-                            ->count();
-                    @endphp
+    @php
+        try {
+            $unreadCount = \App\Models\Notification::where('user_id', auth()->id())
+                ->where('is_read', false)
+                ->count();
+        } catch (\Exception $e) {
+            $unreadCount = 0;
+        }
+    @endphp
 
-                    @if(auth()->user()->role === 'admin')
-                        <li><a class="btn-auth" href="{{ route('admin.dashboard') }}">Dashboard Admin</a></li>
-                    @elseif(auth()->user()->role === 'moderator')
-                        <li><a class="btn-auth btn-moderator" href="{{ route('moderator.dashboard') }}">Dashboard Modérateur</a></li>
-                    @else
-                        <li><a class="btn-auth" href="{{ route('user.dashboard') }}">Mon dashboard</a></li>
-                    @endif
+    @if(auth()->user()->role === 'admin')
+        <li><a class="btn-auth" href="{{ route('admin.dashboard') }}">Dashboard Admin</a></li>
+    @elseif(auth()->user()->role === 'moderator')
+        <li><a class="btn-auth btn-moderator" href="{{ route('moderator.dashboard') }}">Dashboard Modérateur</a></li>
+    @else
+        <li><a class="btn-auth" href="{{ route('user.dashboard') }}">Mon dashboard</a></li>
+    @endif
 
-                    <li><a class="btn-auth" href="{{ route('topics.create') }}">Nouveau sujet</a></li>
+    <li><a class="btn-auth" href="{{ route('topics.create') }}">Nouveau sujet</a></li>
 
-                    <li>
-                        <a class="nav-link" href="{{ auth()->user()->role === 'admin' ? route('admin.notifications') : route('user.dashboard') }}">
-                            🔔
-                            @if($unreadCount > 0)
-                                <span class="notif-badge">{{ $unreadCount }}</span>
-                            @endif
-                        </a>
-                    </li>
+    <li>
+        <a class="nav-link" href="{{ auth()->user()->role === 'admin' ? route('admin.notifications') : (auth()->user()->role === 'moderator' ? route('moderator.notifications') : route('user.dashboard')) }}">
+            🔔
+            @if($unreadCount > 0)
+                <span class="notif-badge">{{ $unreadCount }}</span>
+            @endif
+        </a>
+    </li>
 
-                    <li><span class="nav-link">Bienvenue, {{ auth()->user()->name }}</span></li>
+    <li><span class="nav-link">Bienvenue, {{ auth()->user()->name }}</span></li>
 
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                            @csrf
-                            <button type="submit" class="btn-auth btn-danger">Déconnexion</button>
-                        </form>
-                    </li>
-                @endauth
+    <li>
+        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+            @csrf
+            <button type="submit" class="btn-auth btn-danger">Déconnexion</button>
+        </form>
+    </li>
+@endauth
             </ul>
         </div>
     </nav>
