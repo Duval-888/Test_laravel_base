@@ -12,6 +12,21 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+# Créer le .env directement
+RUN echo "APP_NAME=ForumEnLigne" > .env \
+    && echo "APP_ENV=production" >> .env \
+    && echo "APP_KEY=base64:zCWFC2ZoDxPyV4C01clsSJLTOk9FTFR/DU6l6wZ2Q4o=" >> .env \
+    && echo "APP_DEBUG=false" >> .env \
+    && echo "APP_URL=https://forum-laravel.onrender.com" >> .env \
+    && echo "DB_CONNECTION=sqlite" >> .env \
+    && echo "DB_DATABASE=/var/www/database/database.sqlite" >> .env \
+    && echo "CACHE_DRIVER=file" >> .env \
+    && echo "SESSION_DRIVER=file" >> .env \
+    && echo "QUEUE_CONNECTION=sync" >> .env \
+    && echo "FILESYSTEM_DISK=local" >> .env \
+    && echo "LOG_CHANNEL=stack" >> .env \
+    && echo "LOG_LEVEL=debug" >> .env
+
 RUN touch /var/www/database/database.sqlite
 
 RUN chmod -R 777 storage bootstrap/cache database
