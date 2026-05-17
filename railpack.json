@@ -4,6 +4,17 @@
     },
     "buildAptPackages":[
         "bison",
-        "re2c"
+        "re2c",
+        "libcur14-openssl-dev",
+        "libicu-dev",
+        "libreadline-dev",
+        "libgd-dev",
+        "libpq-dev",
+        "libzip-dev",
+        "libxml2-dev",
+        "libonig-dev",
+        "libsodium-dev",
+        "libssl-dev",
+        "pkg-config"
     ]
 }
